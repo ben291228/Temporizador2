@@ -48,6 +48,20 @@
             justify-content: center;
             gap: 10px;
         }
+
+        .times-list {
+            margin-top: 20px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -58,6 +72,11 @@
             <button id="start" class="btn btn-purple">Iniciar</button>
             <button id="stop" class="btn btn-magenta">Parar</button>
             <button id="reset" class="btn btn-red">Reiniciar</button>
+            <button id="save" class="btn btn-success">Guardar Tiempo</button>
+        </div>
+        <div class="times-list container mt-4">
+            <h3>Tiempos Guardados</h3>
+            <div id="times"></div>
         </div>
     </div>
 
@@ -70,12 +89,29 @@
         const startButton = document.getElementById('start');
         const stopButton = document.getElementById('stop');
         const resetButton = document.getElementById('reset');
+        const saveButton = document.getElementById('save');
+        const timesContainer = document.getElementById('times');
 
         function updateTimerDisplay() {
             const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, '0');
             const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0');
             const seconds = String(elapsedTime % 60).padStart(2, '0');
             timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function addSavedTime(time) {
+            const timeItem = document.createElement('div');
+            timeItem.className = 'time-item';
+            timeItem.innerHTML = `
+                <span>${time}</span>
+                <button class="btn btn-danger btn-sm delete-time">Eliminar</button>
+            `;
+
+            timeItem.querySelector('.delete-time').addEventListener('click', () => {
+                timeItem.remove();
+            });
+
+            timesContainer.appendChild(timeItem);
         }
 
         startButton.addEventListener('click', () => {
@@ -107,6 +143,11 @@
             }
             resetButton.classList.add('pressed');
             setTimeout(() => resetButton.classList.remove('pressed'), 200);
+        });
+
+        saveButton.addEventListener('click', () => {
+            const currentTime = timerDisplay.textContent;
+            addSavedTime(currentTime);
         });
 
         updateTimerDisplay();
