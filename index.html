@@ -1,156 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temporizador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .btn-magenta {
-            background-color: magenta;
-            color: white;
-        }
-
-        .btn-magenta:hover {
-            background-color: pink;
-            color: white;
-        }
-
-        .btn-purple {
-            background-color: purple;
-            color: white;
-        }
-
-        .btn-purple.running {
-            background-color: green;
-        }
-
-        .btn-red {
-            background-color: magenta;
-            color: white;
-        }
-
-        .btn-red.pressed {
-            background-color: red;
-        }
-
-        #timer {
-            border: 2px solid #000;
-            padding: 30px;
-            border-radius: 10px;
-            display: inline-block;
-            width: 250px;
-            margin: 0 auto 20px;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .times-list {
-            margin-top: 20px;
-        }
-
-        .time-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lo Siento, Franny</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ADD8E6; /* Azul claro */
+    }
+  </style>
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 class="mb-4">Temporizador</h1>
-        <div class="display-4" id="timer">00:00:00</div>
-        <div class="btn-group mt-3">
-            <button id="start" class="btn btn-purple">Iniciar</button>
-            <button id="stop" class="btn btn-magenta">Parar</button>
-            <button id="reset" class="btn btn-red">Reiniciar</button>
-            <button id="save" class="btn btn-success">Guardar Tiempo</button>
+
+  <div class="container my-5">
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <h1 class="text-center text-danger">Lo Siento, Franny</h1>
+        <p class="lead text-center">Sé que he cometido errores y quiero pedirte disculpas desde lo más profundo de mi corazón.</p>
+        <p class="text-center">Te valoro mucho y me duele verte triste. Prometo aprender de esto y mejorar para que podamos seguir creciendo juntos.</p>
+        <div class="text-center">
+          <img src="https://i.pinimg.com/736x/ef/31/da/ef31da3aac21d75fede9d3ca00b8f14f.jpg" alt="Lo Siento" class="img-fluid mb-3">
         </div>
-        <div class="times-list container mt-4">
-            <h3>Tiempos Guardados</h3>
-            <div id="times"></div>
+        <p class="text-center">Por favor, perdóname. Te quiero mucho, Franny.</p>
+        <div class="text-center">
+          <a href="https://www.youtube.com/watch?v=5iPEK0uD50E" class="btn btn-danger btn-lg" target="_blank">Aceptar mis disculpas</a>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        let timerInterval;
-        let running = false;
-        let elapsedTime = 0;
-
-        const timerDisplay = document.getElementById('timer');
-        const startButton = document.getElementById('start');
-        const stopButton = document.getElementById('stop');
-        const resetButton = document.getElementById('reset');
-        const saveButton = document.getElementById('save');
-        const timesContainer = document.getElementById('times');
-
-        function updateTimerDisplay() {
-            const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, '0');
-            const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0');
-            const seconds = String(elapsedTime % 60).padStart(2, '0');
-            timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        function addSavedTime(time) {
-            const timeItem = document.createElement('div');
-            timeItem.className = 'time-item';
-            timeItem.innerHTML = `
-                <span>${time}</span>
-                <button class="btn btn-danger btn-sm delete-time">Eliminar</button>
-            `;
-
-            timeItem.querySelector('.delete-time').addEventListener('click', () => {
-                timeItem.remove();
-            });
-
-            timesContainer.appendChild(timeItem);
-        }
-
-        startButton.addEventListener('click', () => {
-            if (!running) {
-                running = true;
-                startButton.classList.add('running');
-                timerInterval = setInterval(() => {
-                    elapsedTime++;
-                    updateTimerDisplay();
-                }, 1000);
-            }
-        });
-
-        stopButton.addEventListener('click', () => {
-            if (running) {
-                running = false;
-                startButton.classList.remove('running');
-                clearInterval(timerInterval);
-            }
-        });
-
-        resetButton.addEventListener('click', () => {
-            elapsedTime = 0;
-            updateTimerDisplay();
-            if (running) {
-                clearInterval(timerInterval);
-                running = false;
-                startButton.classList.remove('running');
-            }
-            resetButton.classList.add('pressed');
-            setTimeout(() => resetButton.classList.remove('pressed'), 200);
-        });
-
-        saveButton.addEventListener('click', () => {
-            const currentTime = timerDisplay.textContent;
-            addSavedTime(currentTime);
-        });
-
-        updateTimerDisplay();
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
